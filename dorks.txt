@@ -1,0 +1,636 @@
+# Login and Admin Pages
+site:*/sign-in
+site:*/account/login
+site:*/user/login
+inurl:wp-login.php
+inurl:/admin/login
+site:admin.*.com/signin/
+inurl:/sso/login
+inurl:/oauth/authorize
+inurl:/signin.jsp
+inurl:/login.aspx
+
+# Directory Listing Vulnerabilities
+intitle:"index of" inurl:/admin
+intitle:"index of" inurl:/uploads
+intitle:"index of" inurl:/backup
+inurl:/files intitle:"index of"
+inurl:/data intitle:"index of"
+
+# Exposed Configuration Files
+inurl:.env intext:"APP_SECRET="
+inurl:.config intext:"password"
+inurl:config.php intext:"db_pass"
+inurl:settings.php intext:"db_"
+inurl:.ini intext:"SECRET_KEY"
+inurl:.cfg intext:"password"
+
+# Find WordPress
+inurl:wp-login.php
+inurl:/wp-json/wp/v2/users
+inurl:/wp-content/plugins
+inurl:wp-admin intext:"login"
+inurl:/wp-includes/ intext:"version"
+
+# Exposed Database Files
+inurl:backup.sql -inurl:download
+inurl:db.sql intext:"insert into"
+inurl:dump.sql
+inurl:database.sql
+inurl:mysql.sql intext:"create table"
+
+# Exposed Log Files
+inurl:access.log
+inurl:error.log
+inurl:debug.log
+inurl:app.log
+inurl:.log -inurl:signup
+
+# Backup and Old Files
+inurl:.bak
+inurl:.old
+inurl:.backup
+inurl:index.php.bak
+inurl:config.php.old intext:"<?php"
+
+# SQL Errors
+inurl:id= intext:"mysql error"
+intext:"sql syntax" inurl:index.php
+intext:"database error" inurl:search.php
+inurl:filter.php intext:"SQLSTATE"
+
+# Publicly Exposed Documents
+inurl:.pdf intext:"confidential"
+inurl:.doc intext:"internal"
+inurl:/docs filetype:pdf intext:"sensitive"
+
+# phpinfo() Exposure
+inurl:phpinfo.php intext:"PHP Version"
+inurl:info.php intext:"phpinfo()"
+inurl:test.php intext:"phpinfo()"
+
+# Backdoors and Shells
+inurl:shell.php
+inurl:cmd.php
+inurl:adminer.php intext:"login"
+inurl:phpmyadmin intext:"login"
+
+# Redirect Vulnerabilities
+inurl:redirect=
+inurl:url=
+inurl:next=
+inurl:goto=
+inurl:return=
+
+# Apache STRUTS RCE
+inurl:.action intext:"struts"
+inurl:.do intext:"struts"
+inurl:/struts2 intext:"apache"
+
+# Pastebin Leaks
+site:pastebin.com intext:"api_key"
+site:pastebin.com intext:"password" inurl:raw
+
+# Employees on LinkedIn
+site:linkedin.com intext:"@site.com" intext:"employee"
+site:linkedin.com/company intext:"site.com"
+
+# .htaccess Sensitive Files
+inurl:.htaccess intext:"RewriteRule"
+inurl:.htaccess intext:"AuthUserFile"
+
+# Subdomain Discovery
+site:*.site.com -inurl:www.site.com
+site:*.*.site.com -inurl:www.site.com
+
+# GitHub Secrets
+site:github.com intext:"site.com" intext:"api_key"
+site:github.com intext:"site.com" intext:".env"
+site:github.com intext:"password" intext:"site.com"
+
+# OpenBugBounty Intel
+site:openbugbounty.org intext:"site.com"
+
+# Reddit OSINT
+site:reddit.com intext:"site.com" intext:"vulnerability"
+site:reddit.com intext:"site.com" intext:"leak"
+
+# CrossDomain Files
+inurl:crossdomain.xml intext:"allow-access-from"
+inurl:clientaccesspolicy.xml intext:"domain"
+
+# ThreatCrowd Intel
+intext:"threatcrowd" intext:"site.com"
+
+# .SWF Discovery
+filetype:swf inurl:site.com
+inurl:.swf site:*.site.com -inurl:signup
+
+# Wayback Machine Files
+inurl:archive.org intext:"site.com" inurl:wp-login
+inurl:archive.org intext:"site.com" inurl:.env
+inurl:archive.org intext:"site.com" inurl:config
+
+# crt.sh Certificates
+intext:"crt.sh" intext:"site.com"
+
+# Censys Enumeration
+intext:"censys.io" intext:"site.com"
+inurl:ip intext:"site.com" intext:"certificate"
+
+# Shodan Results
+intext:"shodan.io" intext:"site.com"
+intext:"http.title" intext:"site.com"
+
+# Common BugHunter Dorks
+inurl:search= # XSS
+inurl:q= # XSS
+inurl:query= # XSS
+intext:"api_key=" -inurl:signup
+intext:"eyJhbGciOiJIUzI1NiJ9" inurl:.js
+inurl:swagger intext:"api_key"
+inurl:openapi intext:"api_key"
+site:*.amazonaws.com inurl:api
+inurl:/strapi/admin
+inurl:/prometheus/graph
+
+# Stored XSS, Reflected Payload Probes
+inurl:"<script>alert(1)</script>"
+inurl:"<img src=x onerror=alert(1)>"
+inurl:"'><svg/onload=alert(1)>"
+inurl:"javascript:alert(1)"
+inurl:"";alert(1);//"
+
+inurl:"/signup" intitle:"Sign Up"
+inurl:"/register" intitle:"Register"
+inurl:"user/register" intitle:"Create Account"
+inurl:"admin/login" intitle:"Admin Panel"
+inurl:"cpanel" intitle:"Control Panel Login"
+inurl:"webmail" intitle:"Roundcube Webmail Login"
+inurl:"/dashboard" intitle:"Dashboard"
+inurl:"/panel/login" intitle:"Admin Panel Login"
+inurl:"/secure/login" intitle:"Secure Login"
+
+# CMS Identifications
+inurl:"/joomla" intitle:"Joomla"
+inurl:"/drupal" intitle:"Drupal"
+inurl:"/typo3" intitle:"TYPO3"
+inurl:"/concrete5" intitle:"concrete5"
+inurl:"/cms" intitle:"Content Management System"
+
+# More exposed secrets
+inurl:"/secrets.txt"
+inurl:"/credentials.json"
+inurl:"/secrets.json"
+inurl:"/private.key"
+inurl:"/id_rsa"
+inurl:"/config.yml"
+
+# Exposed sensitive endpoints
+inurl:"/internal/"
+inurl:"/private/"
+inurl:"/hidden/"
+inurl:"/confidential/"
+inurl:"/api/secret"
+
+# API exposure
+inurl:"/v1/api" intitle:"API Docs"
+inurl:"/v2/api" intitle:"Swagger"
+inurl:"/rest/api" intitle:"OpenAPI"
+inurl:"/graphql" intitle:"GraphQL"
+
+# Search based on sensitive keywords
+intext:"confidential file"
+intext:"internal use only"
+intext:"for testing only"
+intext:"not for distribution"
+intext:"do not share"
+
+# JSON file exposure
+filetype:json inurl:"config"
+filetype:json inurl:"secret"
+filetype:json inurl:"credential"
+filetype:json inurl:"key"
+
+# JavaScript file exposures
+filetype:js intext:"api_key"
+filetype:js intext:"token"
+filetype:js intext:"authorization"
+filetype:js intext:"client_secret"
+filetype:js intext:"jwt"
+
+# JavaScript files containing domains
+inurl:.js intext:"http"
+inurl:.js intext:"site.com"
+
+# Developer tools/pages
+inurl:"/debug"
+inurl:"/test"
+inurl:"/dev"
+inurl:"/beta"
+inurl:"/staging"
+
+# Admin panel paths
+inurl:"/adminpanel"
+inurl:"/admin-console"
+inurl:"/backend/login"
+inurl:"/siteadmin"
+inurl:"/manage"
+
+# Login page variations
+inurl:"login.html"
+inurl:"login.php"
+inurl:"userlogin"
+inurl:"signin.php"
+inurl:"signin.html"
+
+# Backup dumps
+inurl:dump.zip
+inurl:backup.tar.gz
+inurl:site-backup.tar
+inurl:db-backup.gz
+inurl:website-backup.sql
+
+# SQL errors and debug outputs
+intext:"Warning: mysql_fetch_array()"
+intext:"Uncaught PDOException"
+intext:"Microsoft JET Database error"
+intext:"ODBC Microsoft Access Driver"
+intext:"supplied argument is not a valid MySQL result resource"
+
+# Error pages & misconfigurations
+intitle:"404 Not Found" filetype:php
+intitle:"500 Internal Server Error"
+intitle:"Index of /error"
+intitle:"Access Denied" inurl:/admin/
+intitle:"Website Under Maintenance"
+
+# CI/CD & developer pipeline leaks
+inurl:".github/workflows"
+inurl:".gitlab-ci.yml"
+inurl:"jenkinsfile"
+inurl:"/bitbucket-pipelines.yml"
+inurl:"travis.yml"
+
+# Miscellaneous sensitive exposure
+inurl:"/logs/" intitle:"index of"
+inurl:"/tmp/" intitle:"index of"
+inurl:"/cgi-bin/" intitle:"index of"
+inurl:"/uploads/" intext:"upload"
+inurl:"/dump/" intext:"sql"
+
+# Technology indicators
+intext:"powered by Laravel"
+intext:"powered by Express"
+intext:"powered by Spring Boot"
+intext:"powered by Flask"
+intext:"powered by Django"
+
+# JWT exposure
+intext:"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9" inurl:.html
+intext:"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9" inurl:.json
+
+# More internal documentation
+inurl:"internal-docs"
+inurl:"api-docs-private"
+inurl:"readme-internal.md"
+inurl:"developer-docs"
+
+# Misconfigured cloud services
+site:s3.amazonaws.com intext:"Confidential"
+site:storage.googleapis.com intext:"apikey"
+site:azurewebsites.net intext:"secrets"
+
+# XSS endpoint hints
+inurl:"/search?q=<script>"
+inurl:"/results?q=<svg>"
+inurl:"/query?xss="
+inurl:"/?redirect=<script>"
+inurl:"/view?xss="
+# Admin Panels & Login Pages Variants
+inurl:admin_area
+inurl:admin_area.php
+inurl:admin/login.html
+inurl:admin_login.php
+inurl:administrator/index.php
+inurl:adminpanel/login
+inurl:controlpanel/login
+inurl:login/admin
+inurl:login_panel.php
+inurl:moderator/login
+inurl:secure/admin
+
+# Common Sensitive Files and Configurations
+inurl:.bash_history
+inurl:.git/config
+inurl:.gitignore
+inurl:.htpasswd
+inurl:.ssh/authorized_keys
+inurl:config.inc.php
+inurl:config.json
+inurl:db_backup.sql
+inurl:database_backup.sql
+inurl:dump.sql
+inurl:environment.php
+inurl:install.php
+inurl:readme.txt
+inurl:robots.txt
+inurl:setup.php
+
+# Exposed Credentials
+intext:"password="
+intext:"pass="
+intext:"user="
+intext:"token="
+intext:"secret="
+intext:"apikey="
+intext:"access_key="
+intext:"client_secret="
+intext:"auth_token="
+intext:"aws_access_key_id"
+intext:"aws_secret_access_key"
+
+# Exposed Logs
+inurl:error.log
+inurl:access.log
+inurl:debug.log
+inurl:system.log
+inurl:php_error.log
+inurl:apache_error.log
+inurl:nginx_error.log
+
+# Exposed Backup Files
+filetype:sql inurl:backup
+filetype:zip inurl:backup
+filetype:tar.gz inurl:backup
+filetype:bz2 inurl:backup
+filetype:gz inurl:backup
+filetype:xz inurl:backup
+filetype:rar inurl:backup
+filetype:7z inurl:backup
+
+# Exposed Databases
+filetype:sql inurl:dump
+filetype:sql inurl:database
+filetype:sql inurl:db
+filetype:sql inurl:mysql
+filetype:sql inurl:pgsql
+
+# API Exposure
+inurl:api_key
+inurl:api-token
+inurl:api_secret
+inurl:api/v1
+inurl:api/v2
+inurl:swagger.json
+inurl:swagger-ui.html
+inurl:openapi.json
+inurl:graphql
+
+# Cloud Storage Exposure
+site:s3.amazonaws.com
+site:storage.googleapis.com
+site:blob.core.windows.net
+site:amazonaws.com
+
+# Common Web Server Misconfigurations
+intitle:"Index of /"
+intitle:"Directory listing for /"
+intitle:"Parent Directory"
+intitle:"Apache2 Ubuntu Default Page"
+intitle:"Welcome to nginx!"
+intitle:"IIS Windows Server"
+
+# Error Messages Useful for Injection & Exploitation
+intext:"You have an error in your SQL syntax;"
+intext:"Warning: mysql_fetch_array()"
+intext:"Warning: pg_connect()"
+intext:"Uncaught exception"
+intext:"Fatal error"
+intext:"Notice: Undefined variable"
+intext:"Database error"
+
+# Exposed Sensitive Documents
+filetype:pdf confidential
+filetype:xls confidential
+filetype:xlsx confidential
+filetype:doc confidential
+filetype:docx confidential
+filetype:ppt confidential
+filetype:pptx confidential
+filetype:csv confidential
+
+# Exposed Credentials in Git Repositories
+site:github.com inurl:.env
+site:github.com inurl:config.php
+site:github.com inurl:credentials
+site:github.com inurl:aws
+site:github.com inurl:id_rsa
+site:github.com inurl:secrets
+site:github.com inurl:apikey
+
+# Technology-specific Footprints
+intext:"Powered by WordPress"
+intext:"Powered by Joomla"
+intext:"Powered by Drupal"
+intext:"Powered by Magento"
+intext:"Powered by Shopify"
+intext:"Powered by Wix"
+intext:"Powered by Squarespace"
+intext:"Powered by Prestashop"
+
+# Vulnerable Endpoint Indicators
+inurl:"/upload"
+inurl:"/file-upload"
+inurl:"/upload.php"
+inurl:"/upload.html"
+inurl:"/uploads/"
+inurl:"/files/"
+inurl:"/download/"
+inurl:"/download.php"
+
+# Open Redirect Testing
+inurl:"redirect="
+inurl:"url="
+inurl:"next="
+inurl:"redir="
+inurl:"destination="
+inurl:"return="
+inurl:"goto="
+
+# Stored XSS Vector Hints
+inurl:"search?q=<script>"
+inurl:"query=<svg/onload=alert(1)>"
+inurl:"comment=<script>"
+inurl:"post=<img src=x onerror=alert(1)>"
+
+# Miscellaneous Sensitive Info
+inurl:"private"
+inurl:"confidential"
+inurl:"secret"
+inurl:"hidden"
+inurl:"temp"
+inurl:"tmp"
+inurl:"backup"
+inurl:"old"
+
+# Common Admin Interface Paths
+inurl:"/administrator/"
+inurl:"/admin1/"
+inurl:"/admin2/"
+inurl:"/admin3/"
+inurl:"/admin4/"
+inurl:"/admin5/"
+inurl:"/cms-admin/"
+inurl:"/user-admin/"
+inurl:"/cpanel/"
+
+# Miscellaneous Useful Files
+filetype:env
+filetype:ini
+filetype:cfg
+filetype:crt
+filetype:key
+filetype:pem
+filetype:csr
+
+# Framework Specific Paths
+inurl:"/wp-content/plugins/"
+inurl:"/wp-content/themes/"
+inurl:"/wp-includes/"
+inurl:"/administrator/components/"
+inurl:"/sites/all/modules/"
+inurl:"/sites/all/themes/"
+inurl:"/typo3conf/"
+inurl:"/bitrix/admin/"
+inurl:"/joomla/components/"
+
+# Deprecated and Old Tech
+inurl:"phpmyadmin"
+inurl:"pma"
+inurl:"phpPgAdmin"
+inurl:"phpinfo.php"
+inurl:"phpinfo"
+inurl:"info.php"
+
+# Development & Debug Tools
+inurl:"/debug"
+inurl:"/dev"
+inurl:"/test"
+inurl:"/staging"
+inurl:"/beta"
+inurl:"/sandbox"
+
+# Common Exploit Targets
+inurl:"/struts2"
+inurl:"/struts"
+inurl:"/shell"
+inurl:"/cmd"
+inurl:"/exploit"
+inurl:"/payload"
+inurl:"/hack"
+
+# Cross-site Scripting Payloads
+inurl:"xss="
+inurl:"<script>alert(1)</script>"
+inurl:"<img src=x onerror=alert(1)>"
+inurl:"<svg/onload=alert(1)>"
+
+# SQL Injection Indicators
+inurl:"id="
+inurl:"page="
+inurl:"cat="
+inurl:"search="
+intext:"SQL syntax"
+
+# Miscellaneous Sensitive Phrases
+intext:"confidential"
+intext:"proprietary"
+intext:"internal use only"
+intext:"do not distribute"
+intext:"do not share"
+intext:"for testing only"
+
+# Session Token Leaks
+intext:"sessionid="
+intext:"PHPSESSID="
+intext:"auth_token="
+intext:"access_token="
+
+# JWT Token Patterns
+intext:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+intext:"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9"
+intext:"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9"
+
+# Common Misconfigurations
+intitle:"Welcome to nginx!"
+intitle:"It works!"
+intitle:"Apache2 Ubuntu Default Page"
+intitle:"IIS Windows Server"
+intitle:"Test Page for the Apache HTTP Server"
+
+# Cloud Platforms and Services
+site:*.azurewebsites.net
+site:*.herokuapp.com
+site:*.elasticbeanstalk.com
+site:*.appspot.com
+
+# Exposed Infrastructure URLs
+inurl:"/.well-known/security.txt"
+inurl:"/.well-known/change-password"
+inurl:"/.git/HEAD"
+inurl:"/.svn/entries"
+inurl:"/.hg/hgrc"
+
+# Popular CMS Exploit Points
+inurl:"/wp-admin/admin-ajax.php"
+inurl:"/wp-json/wp/v2/posts"
+inurl:"/wp-login.php?action=register"
+inurl:"/administrator/index.php?option=com_users"
+inurl:"/user/login"
+
+# Miscellaneous Sensitive Paths
+inurl:"/vendor/"
+inurl:"/composer.lock"
+inurl:"/package.json"
+inurl:"/pom.xml"
+inurl:"/bower.json"
+inurl:"/gulpfile.js"
+
+# API Tokens and Keys in URLs
+inurl:"token="
+inurl:"api_key="
+inurl:"key="
+inurl:"secret="
+inurl:"access_token="
+
+# Admin Panel Common Ports (on Shodan etc.)
+inurl:":8080"
+inurl:":8443"
+inurl:":9090"
+inurl:":8000"
+inurl:":8181"
+inurl:":8888"
+
+# Miscellaneous Keywords
+intext:"paypal_api_key"
+intext:"stripe_secret_key"
+intext:"slack_token"
+intext:"sendgrid_api_key"
+intext:"twilio_api_key"
+intext:"firebase_api_key"
+
+# Miscellaneous Configuration Files
+filetype:yml
+filetype:yaml
+filetype:conf
+filetype:config
+
+# Common Payload Injection Points
+inurl:"?search="
+inurl:"?q="
+inurl:"?query="
+inurl:"?page="
+inurl:"?id="
+inurl:"?category="
+inurl:"?term="
